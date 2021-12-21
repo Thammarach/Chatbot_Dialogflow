@@ -5,10 +5,15 @@ from linebot import *
 from linebot.models import *
 import sqlite3
 import datetime
+import requests
 
 app = Flask(__name__)
 line_bot_api = LineBotApi('1N/b770dxp0RGhcUgQVg/dGH3PLuq74n/BMSgJEm8dpqu16dKCPOxLLp856/E3UbQGBfoiLp+m41MqZjIpTc4fsWJ7Jb7Fo1UUWB52Q8C5aoMirMQLnLIgxLIFSUIB8PhoDF22fGKTS2IxYYN15k5wdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('ed7025837ae891bd0bc288f3601caa6c')
+
+@app.route('/',methods=['GET'])
+def index():
+    return render_template('index.html')
 
 @app.route('/webhook',methods=['POST'])
 def hello():
@@ -152,7 +157,25 @@ def reply(intent, reply_token, req, id_user):
     if intent == 'Intent-Chat-out - yes':
         line_bot_api.unlink_rich_menu_from_user(id_user)
 
+    if intent == 'Intent-Covid19':
+        data = requests.get('https://covid19.ddc.moph.go.th/api/Cases/today-cases-all') # request to API
+        json_data = json.loads(data.text) # change json to .text
+        print(json_data)
+        Confirmed = json_data[0]['total_case'] # total human have virus
+        Recovered = json_data[0]['total_recovered'] # total human healed
+        Excludeabroad = json_data[0]['total_case_excludeabroad'] # total human healing
+        Deaths = json_data[0]['total_death'] # total human die
+        Newconfirmed = json_data[0]['new_case'] # total new human have virus
+        Update_date = json_data[0]['update_date'] # total new update date
 
+        text_message = TextSendMessage(
+            text='ยอดผู้ติดเชื้อสะสม : {}\nหายแล้ว : {}\nยอดผู้ติดเชื้อทั้งหมด(ไม่รวมชาวต่างขาติ) : {}\nยอดผู้เสียชีวิต : {}\nติดเชื้อเพิ่ม : {}\nวันที่ : {}'.format(
+                Confirmed, Recovered, Excludeabroad, Deaths, Newconfirmed, Update_date))
+        line_bot_api.reply_message(reply_token, text_message)
+
+    if intent == 'intent-liff':
+        text_message = TextSendMessage(text='https://liff.line.me/1656745423-vkmZNkro')
+        line_bot_api.reply_message(reply_token, text_message)
 
 if __name__=='__main__':
     app.run(debug=True)
