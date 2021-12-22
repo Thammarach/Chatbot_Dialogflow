@@ -8,8 +8,8 @@ import datetime
 import requests
 
 app = Flask(__name__)
-line_bot_api = LineBotApi('1N/b770dxp0RGhcUgQVg/dGH3PLuq74n/BMSgJEm8dpqu16dKCPOxLLp856/E3UbQGBfoiLp+m41MqZjIpTc4fsWJ7Jb7Fo1UUWB52Q8C5aoMirMQLnLIgxLIFSUIB8PhoDF22fGKTS2IxYYN15k5wdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('ed7025837ae891bd0bc288f3601caa6c')
+line_bot_api = LineBotApi('***********************************')
+handler = WebhookHandler('***********************************')
 
 @app.route('/',methods=['GET'])
 def index():
@@ -174,7 +174,7 @@ def reply(intent, reply_token, req, id_user):
         line_bot_api.reply_message(reply_token, text_message)
 
     if intent == 'intent-liff':
-        text_message = TextSendMessage(text='https://liff.line.me/1656745423-vkmZNkro')
+        text_message = TextSendMessage(text='***********************************')
         line_bot_api.reply_message(reply_token, text_message)
 
 if __name__=='__main__':

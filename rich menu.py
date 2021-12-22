@@ -1,4 +1,4 @@
-channel_access_token = '1N/b770dxp0RGhcUgQVg/dGH3PLuq74n/BMSgJEm8dpqu16dKCPOxLLp856/E3UbQGBfoiLp+m41MqZjIpTc4fsWJ7Jb7Fo1UUWB52Q8C5aoMirMQLnLIgxLIFSUIB8PhoDF22fGKTS2IxYYN15k5wdB04t89/1O/w1cDnyilFU='
+channel_access_token = '***********************************'
 import json
 import requests
 
