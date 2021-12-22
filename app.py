@@ -131,7 +131,7 @@ def reply(intent, reply_token, req, id_user):
 
      # Chat
     if intent == 'Intent-Chat':
-        line_bot_api.link_rich_menu_to_user(id_user, 'richmenu-75b7b1b107d1c3617593fce43b3e3000')
+        line_bot_api.link_rich_menu_to_user(id_user, 'richmenu-***********************************')
         text_message = TextSendMessage(text='พูดคุยกับเราได้เลยครับ')
         line_bot_api.reply_message(reply_token, text_message)
 
